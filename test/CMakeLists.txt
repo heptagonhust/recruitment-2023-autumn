@@ -4,9 +4,9 @@ if("baseline" IN_LIST SubDirs)
 endif()
 
 foreach(SubDir ${SubDirs})
-    add_executable(conway_test_${SubDir} conway_test.cc)
-    target_link_libraries(conway_test_${SubDir} PRIVATE conway conway_${SubDir})
-    list(APPEND Test_Executables "conway_test_${SubDir}")
+    add_executable(apsp_test_${SubDir} apsp_test.cc)
+    target_link_libraries(apsp_test_${SubDir} PRIVATE graph apsp_${SubDir})
+    list(APPEND Test_Executables "apsp_test_${SubDir}")
 endforeach()
 
 include("tests.cmake")

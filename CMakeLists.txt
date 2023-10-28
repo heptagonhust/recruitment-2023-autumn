@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.25)
 include("cmake/utils.cmake")
 
-project(CONWAY LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD 17)
+project(APSP LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 enable_testing()
 
