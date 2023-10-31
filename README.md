@@ -1,8 +1,8 @@
 # 23-autumn-recruiment
-## 背景：全源最短路
-给定一个图$G = <V,E>$，求任意一对顶点之间的最短路，即是全源最短路（All Pairs Shortest Path, APSP）问题。
+## 背景：有向图全源最短路
+给定一个有向图$G = <V,E>$，求任意一对顶点之间的最短路，即全源最短路（All Pairs Shortest Path, APSP）问题。
 ## 算法：FLoyd-Wallshall算法
-FLoyd-Wallshall算法是一种求解无负权环路图的APSP问题的动态规划算法。其基本原理是递推地求出任意一对点之间经过$\{1,2,...,k\} \subset E$中的顶点的最短路，直至$k = n$。
+FLoyd-Wallshall算法是一种求解无负权环路图的APSP问题的动态规划算法。其基本原理是递推地求出任意一对点之间仅经过$\{1,2,...,k\} \subset E$中的顶点的最短路，直至$k = n$。
 
 在接下来的任务中我们主要关心算法的实现和计算过程，如果需要进一步了解APSP问题，请参考references中的网站或相关书籍。
 
@@ -48,7 +48,7 @@ for (int k = 0; k < n; k++)
 ## 任务具体描述
 ### TASK0 并行初体验
 
-如果您还不太熟悉性能优化的相关技巧，在这个任务中，您可以通过使用[`OpenMP`](https://www.openmp.org)体验简单的线程级并行。
+如果您还不太熟悉性能优化的相关技巧，在这个任务中，您可以通过使用`OpenMP`体验简单的线程级并行。
 
 - 完成这个任务需要您掌握如下内容：
   - `Cmake`添加目标文件和编译选项
@@ -89,10 +89,11 @@ for (int k = 0; k < n; k++)
 - `ctest`返回的时间并非您的apsp计算消耗的时间，而是整个`ctest`测试程序执行的时间。测试程序内对apsp算法耗时进行了单独测试，但默认不会打印。**若需打印算法真实的执行时间和其他程序输出，您需要在`ctest`后添加`-V`参数，测试时以此时间为准**。
 
 - 可以使用 `-E <target_name>` 跳过 对 `src/` 下 `CMakeLists.txt` 中编译目标 `apsp_${target_name}` 的测试，如：
+要跳过`baseline/apsp_baseline.cc`的`CMake`编译目标的`apsp_baseline`测试，使用如下命令：
   ```shell
   ctest --test-dir build -E baseline
   ```
-  将会跳过 `baseline/apsp_baseline.cc` 的测试。
+  将会跳过 `apsp_baseline` 的测试。
 - 注意子目录命名和编译目标命名的对应，这会直接影响到编译与测试的结果
 ### 测试数据
 
@@ -115,8 +116,8 @@ for (int k = 0; k < n; k++)
 
 1. **每一步**优化的思路、过程和效果（举例：使用了 xxx 优化，相对于原代码，速度提升了 114.514 倍）
 2. 如果对baseline程序进行 profile，可以分析性能瓶颈
-1. 您在解题过程中所参考的资料（如有使用人工智能工具，请注明）
-2. 在解题过程中，遇到的有意思的事情，或者是让您印象深刻的 bug（可选）
+3. 您在解题过程中所参考的资料（如有使用人工智能工具，请注明）
+4. 在解题过程中，遇到的有意思的事情，或者是让您印象深刻的 bug（可选）
 
 ### NOTICE
 
@@ -129,6 +130,6 @@ for (int k = 0; k < n; k++)
 
 - [七边形HPC-roadmap](https://heptagonhust.github.io/HPC-roadmap/)
 
-- [OpenMP](https://www.openmp.org)
+- [OpenMP](https://www.openmp.org/resources/refguides/)
 
 - [SIMD入门](https://zhuanlan.zhihu.com/p/583326378)， [内建函数参考手册](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#)
