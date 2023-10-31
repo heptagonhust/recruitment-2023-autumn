@@ -88,12 +88,11 @@ for (int k = 0; k < n; k++)
 - 您可以直接执行 `ctest --test-dir build`，即可对您的实现进行测试
 - `ctest`返回的时间并非您的apsp计算消耗的时间，而是整个`ctest`测试程序执行的时间。测试程序内对apsp算法耗时进行了单独测试，但默认不会打印。**若需打印算法真实的执行时间和其他程序输出，您需要在`ctest`后添加`-V`参数，测试时以此时间为准**。
 
-- 可以使用 `-E <target_name>` 跳过 对 `src/` 下 `CMakeLists.txt` 中编译目标 `apsp_${target_name}` 的测试，如：
-要跳过`baseline/apsp_baseline.cc`的`CMake`编译目标的`apsp_baseline`测试，使用如下命令：
+- 可以使用 `-E <target_name>` 跳过 对 `src/` 下 `CMakeLists.txt` 中编译目标 `apsp_${target_name}` 的测试，例如：
+要跳过`src/baseline`目录中配置的编译目标 `apsp_baseline` 的测试，应当使用如下命令：
   ```shell
   ctest --test-dir build -E baseline
   ```
-  将会跳过 `apsp_baseline` 的测试。
 - 注意子目录命名和编译目标命名的对应，这会直接影响到编译与测试的结果
 ### 测试数据
 
