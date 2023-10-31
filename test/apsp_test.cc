@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     Graph check_data(check_file);
     Graph res(g.vertex_num());
     {
-        string test_name = string("Baseline ") + to_string(g.vertex_num());
+        string test_name = string("TestCase ") + to_string(g.vertex_num());
         ScopeTimer timer(test_name);
         res = g.apsp();
     }
