@@ -1,8 +1,8 @@
 # 23-autumn-recruiment
 ## 背景：有向图全源最短路
-给定一个有向图$G = <V,E>$，求任意一对顶点之间的最短路，即全源最短路（All Pairs Shortest Path, APSP）问题。
+给定一个有向图 $G = <V,E>$ ，求任意一对顶点之间的最短路，即全源最短路（All Pairs Shortest Path, APSP）问题。
 ## 算法：FLoyd-Wallshall算法
-FLoyd-Wallshall算法是一种求解无负权环路图的APSP问题的动态规划算法。其基本原理是递推地求出任意一对点之间仅经过$\{1,2,...,k\} \subset E$中的顶点的最短路，直至$k = n$。
+FLoyd-Wallshall算法是一种求解无负权环路图的APSP问题的动态规划算法。其基本原理是递推地求出任意一对点之间仅经过 $\{1,2,...,k\} \subset E$ 中的顶点的最短路，直至 $k = n$ 。
 
 在接下来的任务中我们主要关心算法的实现和计算过程，如果需要进一步了解APSP问题，请参考references中的网站或相关书籍。
 
