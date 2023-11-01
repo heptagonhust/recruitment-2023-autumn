@@ -1,2 +1,2 @@
 add_executable(generator generator.cc)
-target_link_libraries(generator PRIVATE graph apsp_baseline)
+target_link_libraries(generator PRIVATE apsp_baseline graph)
