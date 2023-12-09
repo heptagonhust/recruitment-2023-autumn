@@ -26,7 +26,7 @@ Graph Graph::apsp()
 {
     Graph result(*this);
 
-#pragma omp parallel for collapse(2)
+#pragma omp parallel for
     for (int k = 0; k < vertex_num_; ++k)
     {
 #pragma omp parallel for
