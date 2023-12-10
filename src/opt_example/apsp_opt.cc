@@ -54,11 +54,16 @@ void* shorten_path(void *argv)
                 int kj=k*num;
 
             for(int i=start;i!=end;++i){
-                    int disik=*(dis_mat+ik);
-                for(int j=0;j!=num;++j){
-                    *(dis_mat+ij)=min(*(dis_mat+ij),disik+*(dis_mat+kj));
-                    //if(dis_mat[i][j]>dis_mat[i][k]+dis_mat[k][j])
-                ++ij;++kj;
+                __m512i dik=_mm512_set1_epi32(*(dis_mat+ik));
+                    //int disik=*(dis_mat+ik);
+                for(int j=0;j!=num;j+=16){
+                    __m512i dij= _mm512_load_epi32(dis_mat+ij);
+                    __m512i dkj=_mm512_load_epi32(dis_mat+kj);
+                    __m512i dikj= _mm512_add_epi32(dik,dkj);
+                    __mmask16 mask=_mm512_cmp_epi32_mask(dikj,dij,_MM_CMPINT_LT);
+                    _mm512_mask_store_epi32(dis_mat+ij,mask,dikj);
+                    //                    *(dis_mat+ij)=min(*(dis_mat+ij),disik+*(dis_mat+kj));
+                ij+=16;kj+=16;
         }
             ik+=num;
             kj=k*num;
