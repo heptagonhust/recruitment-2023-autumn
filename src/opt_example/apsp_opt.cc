@@ -49,19 +49,12 @@ void* shorten_path(void *argv)
     for(int k=0;k!=num;++k)
         {
             pthread_barrier_wait(&barrier);
-            int ij=start;
-            int ik=start+k;
-            int kj=k*num;
 
             for(int i=start;i!=end;++i)
-            {
-                int distance_ik=*(dis_mat+ik);
                 for(int j=0;j!=num;++j){
-                    *(dis_mat+ij)=min(*(dis_mat+ij),*(dis_mat+ik)+*(dis_mat+kj));
-                    ++ij;++kj;
+                    *(dis_mat+i*num+j)=min(*(dis_mat+i*num+j),*(dis_mat+i*num+k)+*(dis_mat+k*num+j));
                     //if(dis_mat[i][j]>dis_mat[i][k]+dis_mat[k][j])
-                }
-                ik+=num;
+
         }
 }
     free(argv);
