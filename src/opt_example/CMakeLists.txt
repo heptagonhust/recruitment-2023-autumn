@@ -1,6 +1,0 @@
-add_library(apsp_opt_example SHARED)
-target_sources(apsp_opt_example PRIVATE apsp_opt.cc)
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
-target_link_libraries(apsp_opt_example PRIVATE Threads::Threads)
-target_compile_options(apsp_opt_example PRIVATE -O0 -march=native -Wall -Wextra -Wpedantic -Werror -lpthread)
