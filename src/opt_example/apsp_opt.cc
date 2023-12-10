@@ -7,26 +7,31 @@ const int thread_num=64;
 struct ARG{
         int *Distance;
         int vertex_num_;
-        int rank;};
+        int rank;
+        Graph *pts;};
 
 pthread_barrier_t barrier;
 void* shorten_path(void *argv);
 
 Graph Graph::apsp() {
     Graph result(*this);
-    int *Distance = result.get_raw_ptr();
+    //int *Distance = result.get_raw_ptr();
 
     pthread_t threads[thread_num];          // 创建线程对象
-    pthread_barrier_init(&barrier,NULL,vertex_num_);
-    ARG argv;
-    argv.Distance=result.get_raw_ptr();
-    argv.vertex_num_=result.vertex_num_;
-
+    pthread_barrier_init(&barrier,NULL,thread_num);
+   
     for(int i=0;i!=thread_num;++i)
     {
-        argv.rank=i;
-        pthread_create(&threads[i],NULL,shorten_path,(void*)&argv);
+        auto argvp=(ARG*)malloc(sizeof(ARG));
+        argvp->rank=i;
+        argvp->Distance=result.get_raw_ptr();
+        argvp->vertex_num_=result.vertex_num_;
+        argvp->pts=&result;
+        pthread_create(&threads[i],NULL,shorten_path,(void*)argvp);
     }
+
+    for(int i=0;i<thread_num;++i)
+    pthread_join(threads[i],NULL);
 
     return result;
 }
@@ -40,16 +45,21 @@ void* shorten_path(void *argv)
     int start=id*num/thread_num;
     int end=(id+1)*num/thread_num;
 
+    auto result=argvp->pts;
     for(int k=0;k!=num;++k)
         {
             pthread_barrier_wait(&barrier);
 
             for(int i=start;i!=end;++i)
                 for(int j=0;j!=num;++j){
-                    int local_=0;
-                    if(*(dis_mat+i*num+j)>(local_=*(dis_mat+i*num+k)+*(dis_mat+k*num+j)))
-                        *(dis_mat+i*num+j)=local_;
+                    (*result)(i,j)=min(*(dis_mat+i*num+j),*(dis_mat+i*num+k)+*(dis_mat+k*num+j));
+                    //if(dis_mat[i][j]>dis_mat[i][k]+dis_mat[k][j])
+
         }
+}
+    free(argv);
+    argv=nullptr;
+    
     return NULL;
 }
 
