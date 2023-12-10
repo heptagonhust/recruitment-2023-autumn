@@ -7,8 +7,8 @@ const int thread_num=64;
 struct ARG{
         int *Distance;
         int vertex_num_;
-        int rank;
-        Graph *pts;};
+        int rank;};
+      //  Graph *pts;};
 
 pthread_barrier_t barrier;
 void* shorten_path(void *argv);
@@ -26,7 +26,7 @@ Graph Graph::apsp() {
         argvp->rank=i;
         argvp->Distance=result.get_raw_ptr();
         argvp->vertex_num_=result.vertex_num_;
-        argvp->pts=&result;
+   //     argvp->pts=&result;
         pthread_create(&threads[i],NULL,shorten_path,(void*)argvp);
     }
 
@@ -45,21 +45,21 @@ void* shorten_path(void *argv)
     int start=id*num/thread_num;
     int end=(id+1)*num/thread_num;
 
-    auto result=argvp->pts;
+  //  auto result=argvp->pts;
     for(int k=0;k!=num;++k)
         {
             pthread_barrier_wait(&barrier);
 
             for(int i=start;i!=end;++i)
                 for(int j=0;j!=num;++j){
-                    (*result)(i,j)=min(*(dis_mat+i*num+j),*(dis_mat+i*num+k)+*(dis_mat+k*num+j));
+                    *(dis_mat+i*num+j)=min(*(dis_mat+i*num+j),*(dis_mat+i*num+k)+*(dis_mat+k*num+j));
                     //if(dis_mat[i][j]>dis_mat[i][k]+dis_mat[k][j])
 
         }
 }
     free(argv);
     argv=nullptr;
-    
+
     return NULL;
 }
 
