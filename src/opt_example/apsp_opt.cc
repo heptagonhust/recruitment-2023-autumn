@@ -46,15 +46,22 @@ void* shorten_path(void *argv)
     int end=(id+1)*num/thread_num;
 
   //  auto result=argvp->pts;
-    for(int k=0;k!=num;++k)
+   for(int k=0;k!=num;++k)
         {
             pthread_barrier_wait(&barrier);
+                int ij=start*num;
+                int ik=start*num+k;
+                int kj=k*num;
 
-            for(int i=start;i!=end;++i)
+            for(int i=start;i!=end;++i){
+                    int disik=*(dis_mat+ik);
                 for(int j=0;j!=num;++j){
-                    *(dis_mat+i*num+j)=min(*(dis_mat+i*num+j),*(dis_mat+i*num+k)+*(dis_mat+k*num+j));
+                    *(dis_mat+ij)=min(*(dis_mat+ij),disik+*(dis_mat+kj));
                     //if(dis_mat[i][j]>dis_mat[i][k]+dis_mat[k][j])
-
+                ++ij;++kj;
+        }
+            ik+=num;
+            kj=k*num;
         }
 }
     free(argv);
