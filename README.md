@@ -1,10 +1,3 @@
----
-title: APSP
-date: 2023-12-05 16:33:50
-tags: "hpc"
-thumbnail: "../images/download.jpg"
----
-
 # <font color=deepskyblue>APSP</font>
 
 * ## <font color=pink>Prerequisites</font>
