@@ -1,0 +1,7 @@
+add_library(apsp_jpx_omp SHARED)
+target_sources(apsp_jpx_omp PRIVATE apsp_jpx_omp.cc)
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+        target_link_libraries(apsp_jpx_omp PUBLIC OpenMP::OpenMP_CXX)
+endif()
+target_compile_options(apsp_jpx_omp PRIVATE -O3 -march=native -fopenmp -Wall -Wextra -Wpedantic -Werror)

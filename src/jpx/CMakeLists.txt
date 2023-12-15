@@ -1,0 +1,6 @@
+add_library(apsp_jpx SHARED)
+target_sources(apsp_jpx PRIVATE apsp_opt.cc)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(apsp_jpx PRIVATE Threads::Threads)
+target_compile_options(apsp_jpx PRIVATE -O0 -march=native -Wall -Wextra -Wpedantic -Werror -lpthread)
